@@ -1,4 +1,5 @@
 <template>
+	<pm-header></pm-header>
 	<section class="section">
 		<nav class="navbar has-shadow">
 			<div class="container">
@@ -25,13 +26,21 @@
 			</p>
 		</div>
 	</section>
+	<pm-footer></pm-footer>
 </template>
 
 <script>
 import trackService from "@/util/api"
+import PmFooter from "@/components/layout/Footer"
+import PmHeader from "@/components/layout/Header"
 
 export default {
 	name: "App",
+
+	components: {
+		PmFooter,
+		PmHeader,
+	},
 
 	data() {
 		return {
