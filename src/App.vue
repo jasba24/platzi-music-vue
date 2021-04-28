@@ -1,7 +1,8 @@
 <template>
 	<pm-header></pm-header>
+
 	<section class="section">
-		<nav class="navbar has-shadow">
+		<nav class="navbar">
 			<div class="container">
 				<input
 					type="text"
@@ -13,10 +14,11 @@
 				<a class="button is-danger is-large">&times;</a>
 			</div>
 		</nav>
+		<pm-loader v-show="isLoading"></pm-loader>
 		<div class="container">
-			<div class="colums">
-				<div class="column" v-for="t in tracks">
-					{{ t.name }} - {{ t.artists[0].name }}
+			<div class="columns is-multiline">
+				<div class="column is-one-quarter" v-for="t in tracks">
+					<pm-track :class="{ 'is-active': t.id === selectedTrack }" @select="setSelectedTrack" :track="t"></pm-track>
 				</div>
 			</div>
 		</div>
@@ -33,6 +35,8 @@
 import trackService from "@/util/api"
 import PmFooter from "@/components/layout/Footer"
 import PmHeader from "@/components/layout/Header"
+import PmTrack from "@/components/Track"
+import PmLoader from "@/components/shared/Loader"
 
 export default {
 	name: "App",
@@ -40,12 +44,16 @@ export default {
 	components: {
 		PmFooter,
 		PmHeader,
+		PmTrack,
+		PmLoader,
 	},
 
 	data() {
 		return {
 			searchQuery: "",
 			tracks: [],
+			isLoading: false,
+			selectedTrack: "",
 		}
 	},
 
@@ -59,9 +67,16 @@ export default {
 		search() {
 			if (!this.searchQuery) return
 
-			trackService
-				.search(this.searchQuery)
-				.then(res => (this.tracks = res.tracks.items))
+			this.isLoading = true
+
+			trackService.search(this.searchQuery).then(res => {
+				this.tracks = res.tracks.items
+				this.isLoading = false
+			})
+		},
+
+		setSelectedTrack(id) {
+			this.selectedTrack = id
 		},
 	},
 }
@@ -69,4 +84,10 @@ export default {
 
 <style lang="scss">
 @import "scss/main.scss";
+.colum {
+	display: flex;
+}
+.is-active {
+	border: 3px solid #23d160;
+}
 </style>
