@@ -14,12 +14,13 @@
 				<a class="button is-danger is-large">&times;</a>
 			</div>
 		</nav>
-		<pm-loader v-show="isLoading"></pm-loader>
-		<pm-notification v-show="showNotification">
-			<template v-slot:body>
-				<p>No se encontraron resultados</p>
+		<pm-notification :hasData="hasData">
+			<template v-slot:body  v-show="showNotification">
+				<p v-if="hasData">No se encontraron resultados</p>
+				<p v-else>{{ searchMessage }}</p>
 			</template>
 		</pm-notification>
+		<pm-loader v-show="isLoading"></pm-loader>
 		<div class="container">
 			<div class="columns is-multiline">
 				<div class="column is-one-quarter" v-for="t in tracks">
@@ -31,11 +32,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="container">
-			<p v-show="!showNotification">
-				<small>{{ searchMessage }}</small>
-			</p>
-		</div>
+		<div class="container"></div>
 	</section>
 	<pm-footer></pm-footer>
 </template>
@@ -66,6 +63,7 @@ export default {
 			isLoading: false,
 			selectedTrack: "",
 			showNotification: false,
+			hasData: false,
 		}
 	},
 
@@ -93,6 +91,8 @@ export default {
 
 			trackService.search(this.searchQuery).then(res => {
 				this.showNotification = res.tracks.total === 0
+				this.hasData = res.tracks.total === 0
+				console.log(this.hasData);
 				this.tracks = res.tracks.items
 				this.isLoading = false
 			})
@@ -113,7 +113,7 @@ export default {
 .is-active {
 	border: 3px solid #23d160;
 }
-.margin {
+.mb-20 {
 	margin-bottom: 20px;
 }
 </style>
