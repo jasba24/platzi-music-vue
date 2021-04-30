@@ -49,11 +49,14 @@
 
 <script>
 import PmLoader from "@/components/shared/Loader"
+import trackMixin from "@/mixins/track"
 
 export default {
 	components: {
 		PmLoader,
 	},
+
+	mixins: [trackMixin],
 
 	props: {
 		track: { type: Object, required: true },
@@ -61,13 +64,6 @@ export default {
 	},
 
 	methods: {
-		selectTrack() {
-			if (!this.track.preview_url) {
-				return
-			}
-			this.$emit("select", this.track.id)
-		},
-
 		goToTrack(id) {
 			if (!this.track.preview_url) {
 				return

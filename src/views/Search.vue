@@ -26,12 +26,9 @@
 					class="column is-one-quarter"
 					v-for="t in tracks"
 					v-blur="t.preview_url"
+					:class="{ 'is-active': t.id === selectedTrack }"
 				>
-					<pm-track
-						:class="{ 'is-active': t.id === selectedTrack }"
-						@select="setSelectedTrack"
-						:track="t"
-					></pm-track>
+					<pm-track @select="setSelectedTrack" :track="t"></pm-track>
 				</div>
 			</div>
 		</div>
