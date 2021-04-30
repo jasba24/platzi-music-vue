@@ -7,6 +7,7 @@
 					placeholder="Buscar canciones"
 					class="input is-large"
 					v-model="searchQuery"
+					@keyup.enter="search"
 				/>
 				<a @click.prevent="search" class="button is-info is-large">Buscar</a>
 				<a class="button is-danger is-large">&times;</a>
