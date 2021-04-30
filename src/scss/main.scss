@@ -1,1 +1,12 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css";
+
+.move-enter-active,
+.move-leave-active {
+	transform: translateX(0);
+	transition: all 0.3s linear;
+}
+
+.move-enter-from,
+.move-leave-to {
+	transform: translateX(100%);
+}

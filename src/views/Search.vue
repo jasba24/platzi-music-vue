@@ -13,13 +13,17 @@
 				<a class="button is-danger is-large">&times;</a>
 			</div>
 		</nav>
-		<pm-notification :hasData="hasData">
-			<template v-slot:body v-show="showNotification">
-				<p v-if="hasData">No se encontraron resultados</p>
-				<p v-else>{{ searchMessage }}</p>
-			</template>
-		</pm-notification>
-		<pm-loader v-show="isLoading"></pm-loader>
+		<transition name="move">
+			<pm-notification :hasData="hasData">
+				<template v-slot:body v-show="showNotification">
+					<p v-if="hasData">No se encontraron resultados</p>
+					<p v-else>{{ searchMessage }}</p>
+				</template>
+			</pm-notification>
+		</transition>
+		<transition name="move">
+			<pm-loader v-show="isLoading"></pm-loader>
+		</transition>
 		<div class="container">
 			<div class="columns is-multiline">
 				<div
