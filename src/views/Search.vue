@@ -22,7 +22,11 @@
 		<pm-loader v-show="isLoading"></pm-loader>
 		<div class="container">
 			<div class="columns is-multiline">
-				<div class="column is-one-quarter" v-for="t in tracks">
+				<div
+					class="column is-one-quarter"
+					v-for="t in tracks"
+					v-blur="t.preview_url"
+				>
 					<pm-track
 						:class="{ 'is-active': t.id === selectedTrack }"
 						@select="setSelectedTrack"

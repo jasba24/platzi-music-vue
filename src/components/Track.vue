@@ -26,10 +26,20 @@
 				<small>{{ $filters.msToMm(track.duration_ms) }}</small>
 				<nav class="level">
 					<div class="level-left">
-						<a class="level-item"></a>
-						<span class="icon is-small" @click="selectTrack">▶️</span>
-						<a class="level-item"></a>
-						<span class="icon is-small" @click="goToTrack(track.id)">🌎</span>
+						<button
+							v-blur="track.preview_url"
+							@click="selectTrack"
+							class="level-item button is-primary"
+						>
+							▶️
+						</button>
+						<button
+							v-blur="track.preview_url"
+							@click="goToTrack(track.id)"
+							class="level-item button is-warning"
+						>
+							🌎
+						</button>
 					</div>
 				</nav>
 			</div>
@@ -52,18 +62,18 @@ export default {
 
 	methods: {
 		selectTrack() {
+			if (!this.track.preview_url) {
+				return
+			}
 			this.$emit("select", this.track.id)
 		},
 
 		goToTrack(id) {
+			if (!this.track.preview_url) {
+				return
+			}
 			this.$router.push(`/track/${id}`)
 		},
 	},
 }
 </script>
-
-<style>
-.icon.is-small {
-	cursor: pointer;
-}
-</style>
