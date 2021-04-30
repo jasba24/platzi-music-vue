@@ -8,7 +8,10 @@
 							<strong>📻 Platzi Music</strong>
 						</div>
 					</div>
-					<div class="navbar-end navbar-menu"></div>
+					<div class="navbar-end navbar-menu">
+						<router-link class="navbar-item" to="/">Buscar</router-link>
+						<router-link class="navbar-item" to="about">Nosotros</router-link>
+					</div>
 				</div>
 			</header>
 		</div>
