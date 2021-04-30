@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="columns">
 			<div class="column is-5 is-offset-4">
-				<pm-track :track="track" />
+				<pm-track :track="track" :loading="isLoading" />
 			</div>
 		</div>
 	</div>
@@ -21,6 +21,7 @@ export default {
 	data() {
 		return {
 			track: {},
+			isLoading: true,
 		}
 	},
 
@@ -28,6 +29,7 @@ export default {
 		const id = this.$route.params.id
 		trackService.getById(id).then(res => {
 			this.track = res
+			this.isLoading = false
 		})
 	},
 }

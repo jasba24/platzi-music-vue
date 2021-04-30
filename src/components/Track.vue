@@ -1,4 +1,5 @@
 <template>
+	<pm-loader v-if="loading" />
 	<div class="card" v-if="track && track.album">
 		<div class="card-image">
 			<figure class="image is-1by1">
@@ -37,9 +38,16 @@
 </template>
 
 <script>
+import PmLoader from "@/components/shared/Loader"
+
 export default {
+	components: {
+		PmLoader,
+	},
+
 	props: {
 		track: { type: Object, required: true },
+		loading: Boolean,
 	},
 
 	methods: {
