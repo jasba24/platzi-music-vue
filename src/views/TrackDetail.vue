@@ -1,5 +1,6 @@
 <template>
-	<div class="container">
+		<pm-loader v-if="isLoading" />
+	<div class="container" v-if="!isLoading">
 		<div class="columns">
 			<div class="column is-3 has-text-centered">
 				<figure class="media-left">
@@ -50,21 +51,27 @@
 <script>
 import trackService from "@/util/api"
 import trackMixin from "@/mixins/track"
+import PmLoader from "@/components/shared/Loader"
 
 export default {
 	name: "TrackDetail",
+
+	components: {
+		PmLoader,
+	},
 
 	mixins: [trackMixin],
 
 	data() {
 		return {
 			track: {},
-			isLoading: true,
+			isLoading: false,
 		}
 	},
 
 	created() {
 		const id = this.$route.params.id
+		this.isLoading = true
 		trackService.getById(id).then(res => {
 			this.track = res
 			this.isLoading = false
