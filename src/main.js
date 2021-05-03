@@ -2,6 +2,7 @@ import { createApp } from "vue"
 import App from "./App.vue"
 import router from "@/router"
 import { convertMsToMm } from "./filters"
+import store from "./store"
 
 const app = createApp(App)
 
@@ -11,6 +12,7 @@ app.directive("blur", (el, binding) => {
 })
 
 app.use(router)
+app.use(store)
 
 app.config.globalProperties.$filters = {
 	msToMm(value) {
