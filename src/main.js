@@ -1,8 +1,9 @@
 import { createApp } from "vue"
-import App from "./App.vue"
+import App from "@/App.vue"
 import router from "@/router"
 import { convertMsToMm } from "./filters"
-import store from "./store"
+import store from "@/store"
+import i18n from "@/i18n"
 
 const app = createApp(App)
 
@@ -13,6 +14,7 @@ app.directive("blur", (el, binding) => {
 
 app.use(router)
 app.use(store)
+app.use(i18n)
 
 app.config.globalProperties.$filters = {
 	msToMm(value) {
